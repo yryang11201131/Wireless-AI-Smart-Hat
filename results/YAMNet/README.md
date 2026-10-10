@@ -44,3 +44,23 @@ The experiment was used to evaluate the feasibility of YAMNet-based environmenta
 
 Additional result files such as confusion matrices and evaluation summaries can be stored in this directory.
 
+
+
+\## Result Figures
+
+
+
+\### Classification Accuracy
+
+
+
+!\[YAMNet Classification Accuracy](accuracy\_bar\_chart.png)
+
+
+
+\### Confusion Matrix
+
+
+
+!\[YAMNet Confusion Matrix](confusion\_matrix.png)
+
