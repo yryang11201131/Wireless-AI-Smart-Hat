@@ -1,47 +1,109 @@
-# VISTRA Smart Hat
+# Wireless AI Smart Hat for Hearing-Impaired Users
 
-VISTRA is an open-source AI-assisted smart hat designed to provide visualized auditory information for hearing-impaired users.
+## 無線 AI 聽損智慧帽
 
-The system is implemented on a Raspberry Pi and integrates speech recognition, hazardous sound recognition, sound-source direction estimation, OLED display, and LED indicators.
+Wireless AI Smart Hat is a Raspberry Pi-based wearable assistive system designed to convert important auditory information into visual information for hearing-impaired users.
 
-## Main Features
+The system integrates real-time speech recognition, hazardous environmental sound recognition, sound-source direction estimation, OLED display, and LED direction indicators. By processing audio directly on the Raspberry Pi, the system can operate without continuously transmitting audio to cloud services.
 
-- Real-time speech transcription using Whisper / whisper.cpp
-- Hazardous environmental sound recognition using YAMNet
-- Sound-source direction estimation using a ReSpeaker microphone array
-- OLED display for speech subtitles and warning messages
-- LED indicators for sound-source direction
+---
+
+## Project Overview
+
+Hearing-impaired users may encounter difficulties in understanding speech, noticing important environmental sounds, and identifying the direction of sound sources.
+
+This project aims to reduce these information gaps by converting auditory information into visual feedback.
+
+The system provides:
+
+- Real-time speech subtitles
+- Hazardous sound recognition
+- Sound-source direction estimation
+- OLED visual warnings
+- LED direction indicators
 - Edge AI processing on Raspberry Pi
-- Offline operation without continuous cloud connection
+- Offline operation
 
-## Open-Source AI Models and Tools
+---
 
-### Whisper
+## System Architecture
 
-Whisper is an automatic speech recognition model developed by OpenAI.
+![System Architecture](docs/system_architecture.png)
 
-In this project, Whisper is used to convert spoken audio into real-time text subtitles.
+The Raspberry Pi serves as the main edge-computing platform and integrates speech recognition, environmental sound recognition, sound-source direction estimation, and visual feedback modules.
 
-Official repository:  
-https://github.com/openai/whisper
+---
 
-### whisper.cpp
+## System Flowchart
 
-whisper.cpp provides a lightweight C/C++ implementation of Whisper suitable for edge devices such as Raspberry Pi.
+![System Flowchart](docs/system_flowchart.jpg)
 
-Official repository:  
-https://github.com/ggml-org/whisper.cpp
+The system continuously captures environmental audio through the microphone array.
 
-### YAMNet
+Speech and environmental sounds are processed by different AI modules, while the sound-source direction is estimated simultaneously. The results are then converted into visual information and displayed through the OLED and LED indicators.
 
-YAMNet is an audio event classification model based on MobileNet and trained using AudioSet.
+---
 
-In this project, YAMNet is used to recognize important environmental sounds and hazardous sound events.
+## Main Functions
 
-Official source:  
-https://www.tensorflow.org/hub/tutorials/yamnet
+### 1. Real-Time Speech Recognition
+
+The system uses Whisper through whisper.cpp to convert spoken audio into real-time text subtitles.
+
+The speech recognition module runs locally on the Raspberry Pi, reducing dependence on network connectivity and cloud services.
+
+---
+
+### 2. Hazardous Environmental Sound Recognition
+
+YAMNet is used to classify environmental sounds.
+
+The current system focuses on several important sound categories, including:
+
+- Alarm / Siren
+- Vehicle Horn
+- Dog Bark
+- Background Sound
+
+When an important sound event is detected, the system generates a visual warning for the user.
+
+---
+
+### 3. Sound-Source Direction Estimation
+
+The ReSpeaker USB microphone array is used to estimate the Direction of Arrival (DoA) of incoming sound.
+
+The detected sound direction is converted into user-friendly direction information such as:
+
+- Front
+- Left
+- Right
+
+LED indicators are used to provide an intuitive direction cue.
+
+---
+
+### 4. OLED Visual Display
+
+The SSD1322 OLED display provides visual information including:
+
+- Speech subtitles
+- Hazardous sound warnings
+- Sound-source direction information
+
+---
+
+### 5. LED Direction Indicators
+
+LED indicators provide additional visual feedback for sound direction.
+
+When an important environmental sound is detected, the LED indicators show the approximate direction of the sound source.
+
+---
 
 ## Hardware
+
+The current prototype includes:
 
 - Raspberry Pi 4B
 - ReSpeaker USB Microphone Array
@@ -50,135 +112,91 @@ https://www.tensorflow.org/hub/tutorials/yamnet
 - Portable Power Supply
 - Wearable Hat Prototype
 
-## System Functions
+---
 
-The system converts auditory information into visual information for hearing-impaired users.
+## Software and AI Models
 
-1. Speech is captured through the microphone array.
-2. Whisper converts speech into text.
-3. YAMNet detects important environmental sound events.
-4. DoA estimates the direction of the sound source.
-5. OLED displays speech subtitles and warning information.
-6. LEDs indicate the direction of important sound sources.
+### Whisper
 
-## Project Images
+Whisper is an automatic speech recognition model developed by OpenAI.
 
-### System Architecture
+In this project, Whisper is used to convert spoken audio into text.
 
-![System Architecture](docs/system_architecture.png)
+Official repository:
 
-### System Flowchart
+https://github.com/openai/whisper
 
-![System Flowchart](docs/system_flowchart.jpg)
+---
 
-### Smart Hat Prototype
+### whisper.cpp
 
-![Smart Hat Prototype](docs/prototype.jpg)
-
-### OLED Display Demo
-
-![OLED Display Demo](docs/oled_demo.png)
-
-### LED Direction Demo
-
-![LED Direction Demo](docs/led_direction_demo.jpg)
-
-## Project Structure
-
-```text
-VISTRA-Smart-Hat/
-├── src/
-│   ├── ASR/
-│   ├── YAMNet/
-│   ├── DoA/
-│   ├── OLED/
-│   └── Integrated_System/
-├── docs/
-├── README.md
-├── requirements.txt
-└── LICENSE
-```
-
-## Installation and Setup
-
-### 1. Install Python dependencies
-
-Install the required Python packages:
-
-```bash
-pip install -r requirements.txt
-```
-
-### 2. Install whisper.cpp
-
-Clone and build whisper.cpp on the Raspberry Pi.
+whisper.cpp is a lightweight C/C++ implementation of Whisper suitable for edge devices such as Raspberry Pi.
 
 Official repository:
 
 https://github.com/ggml-org/whisper.cpp
 
-The current system uses the `ggml-tiny.bin` Whisper model.
+---
 
-Expected default paths:
+### YAMNet
+
+YAMNet is an audio event classification model based on MobileNet and trained using AudioSet.
+
+In this project, YAMNet is used for environmental sound recognition.
+
+Official source:
+
+https://www.tensorflow.org/hub/tutorials/yamnet
+
+---
+
+## Prototype
+
+![Prototype](docs/prototype.jpg)
+
+The AI modules, microphone array, OLED display, LEDs, and Raspberry Pi are integrated into a wearable smart-hat prototype.
+
+---
+
+## OLED Demonstration
+
+![OLED Display Demo](docs/oled_demo.png)
+
+The OLED display presents real-time speech subtitles and environmental warning information.
+
+---
+
+## LED Direction Demonstration
+
+![LED Direction Demo](docs/led_direction_demo.jpg)
+
+LED indicators provide visual cues corresponding to the estimated sound-source direction.
+
+---
+
+## Project Structure
 
 ```text
-~/whisper.cpp/build/bin/whisper-cli
-~/whisper.cpp/models/ggml-tiny.bin
-```
-
-### 3. Prepare YAMNet files
-
-Place the following files in the same directory as `vistra_main.py`:
-
-```text
-yamnet.tflite
-yamnet_class_map.csv
-```
-
-These files are used for environmental sound classification.
-
-### 4. Configure ReSpeaker DoA
-
-The system uses the ReSpeaker USB microphone array for audio capture and Direction of Arrival (DoA) estimation.
-
-The ReSpeaker tuning module should be available under:
-
-```text
-~/pixel_ring/usb_4_mic_array/
-```
-
-The program imports:
-
-```python
-from usb_4_mic_array.tuning import Tuning
-```
-
-### 5. Connect the OLED and LEDs
-
-The current implementation uses:
-
-- SSD1322 OLED display through SPI
-- Four GPIO-controlled direction LEDs
-- Raspberry Pi GPIO pins 17, 27, 22, and 23
-
-### 6. Run the integrated system
-
-Move to the integrated system directory:
-
-```bash
-cd src/Integrated_System
-```
-
-Run:
-
-```bash
-python3 vistra_main.py
-```
-
-Press `Ctrl+C` to stop the system.
-
-## License
-
-The source code developed for this project is released under the MIT License.
-
-Third-party models, libraries, and tools used in this project remain subject to their respective original licenses.
+Wireless-AI-Smart-Hat/
+├── docs/
+│   ├── README.md
+│   ├── led_direction_demo.jpg
+│   ├── oled_demo.png
+│   ├── prototype.jpg
+│   ├── system_architecture.png
+│   └── system_flowchart.jpg
+│
+├── src/
+│   ├── Integrated_System/
+│   │   ├── README.md
+│   │   ├── vistra_main.py
+│   │   ├── yamnet.tflite
+│   │   └── yamnet_class_map.csv
+│   │
+│   └── YAMNet/
+│       └── yamnet_fourclass_evaluation.py
+│
+├── .gitignore
+├── LICENSE
+├── README.md
+└── requirements.txt
