@@ -28,3 +28,15 @@ Whisper tiny through whisper.cpp was selected for the final implementation becau
 
 Experimental figures and detailed records can be placed in this directory.
 
+
+
+\## Result Figure
+
+
+
+\### Vosk Recognition Evaluation
+
+
+
+!\[Vosk Recognition Evaluation](vosk\_combined\_chart\_fixed.png)
+
